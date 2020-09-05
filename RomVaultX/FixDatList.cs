@@ -45,7 +45,15 @@ and (select count(1) from ROM WHERE ROM.FileId is null AND ROM.GameId=Game.GameI
 
             int DatId = -1;
 
-            string datFilename = @"D:\fixOut.dat";
+            //--- pacman56 --- 
+            //New Feature: This change allows the user to choose the location of where the fixdat is saved.
+            var fixOutDir = @"Reports";
+            if (AppSettings.ReadSetting("FixOutDir") != null)
+                fixOutDir = AppSettings.ReadSetting("FixOutDir");
+            if (!Directory.Exists(fixOutDir))
+                Directory.CreateDirectory(fixOutDir);
+            string datFilename = Path.Combine(fixOutDir, "fixOut.dat");
+            //--- pacman56 --- 
 
             StreamWriter _ts = new StreamWriter(datFilename);
 

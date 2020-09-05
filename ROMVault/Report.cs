@@ -141,6 +141,15 @@ namespace ROMVault
             if (root == null)
                 root = DB.DirTree.Child(0);
 
+            //--- pacman56 --- 
+            //New Feature: When clicking on "Generate Reports", existing fixdat files are deleted from the selected folder.
+            var fixdatFileCount = Directory.GetFiles(_outdir, "fixDat_*.dat").Length;
+            if (fixdatFileCount > 0)
+            {
+                foreach (var file in Directory.GetFiles(_outdir, "fixDat_*.dat"))
+                    File.Delete(file);
+            }
+            //--- pacman56 ---
             MakeFixFilesRecurse(root, true, scrubIt);
 
             if (_ts == null)
